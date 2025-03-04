@@ -1,13 +1,35 @@
-FROM python:3.10.5 AS compile-image
+FROM python:3.9-slim
 
-RUN pip install --no-cache-dir telethon cryptg==0.2 pysocks
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libssl-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-FROM python:3.10.5-slim AS run-image
-
-COPY --from=compile-image /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
-
+# Establecer directorio de trabajo
 WORKDIR /app
-COPY *.py ./
-RUN chmod 777 /app/*.py
 
-CMD [ "python3", "./telegram-download-daemon.py" ]
+# Copiar y instalar dependencias
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar el código fuente
+COPY *.py ./
+
+# Crear directorio para descargas
+RUN mkdir -p /download
+VOLUME /download
+
+# Variables de entorno por defecto
+ENV DOWNLOAD_DIR=/download
+ENV API_ID=
+ENV API_HASH=
+ENV BOT_TOKEN=
+ENV ENABLE_NOTIFICATIONS=true
+ENV NOTIFICATION_CHAT_ID=
+ENV SEGMENT_SIZE_MB=20
+ENV CONCURRENT_SEGMENTS=3
+
+# Comando para iniciar el daemon
+CMD ["python", "-u", "telegram-download-daemon.py"]

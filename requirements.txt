@@ -1,7 +1,8 @@
-cffi==1.14.0
-cryptg==0.3
-pyaes==1.6.1
-pyasn1==0.4.8
-pycparser==2.20
-rsa==4.7
-Telethon>=1.24.0
+telethon>=1.28.5
+cryptg>=0.2.post4  # Para acelerar la encriptación/desencriptación (opcional pero recomendado)
+hachoir>=3.1.3     # Para metadatos de archivos
+aiohttp>=3.8.4     # Para solicitudes HTTP asíncronas
+Pillow>=9.4.0      # Para procesamiento de imágenes
+python-dotenv>=1.0.0  # Para cargar variables de entorno desde .env (opcional)
+aiofiles>=23.1.0   # Para operaciones asíncronas de archivos
+asyncio>=3.4.3     # Para operaciones asíncronas

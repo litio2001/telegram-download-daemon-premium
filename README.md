@@ -74,3 +74,36 @@ $ docker-compose up -d
 ```
 
 See the `sessions` volume in the [docker-compose.yml](docker-compose.yml) file.
+
+
+***************
+## Nuevas características versión v25.3.4
+
+### Soporte para cuentas Premium
+- Detección automática de estado premium
+- Aprovechamiento de límites aumentados
+- Optimizaciones para cuentas premium
+
+### Descarga segmentada para archivos grandes
+- Descarga archivos enormes divididos en partes
+- Combinación automática al finalizar
+- Configurable mediante variables de entorno
+
+### Descargas programadas
+- Programa descargas para ejecutarse más tarde
+- Comandos disponibles:
+  - `/schedule N` - Programa la descarga para N minutos después (responde a un mensaje)
+  - `/list_scheduled` - Muestra las descargas pendientes
+  - `/cancel_scheduled ID` - Cancela una descarga programada
+
+### Sistema de notificaciones
+- Recibe notificaciones cuando se completen las descargas
+- Incluye información detallada sobre el archivo y tiempo de descarga
+- Configurable mediante variables de entorno
+
+## Variables de entorno adicionales
+
+- `ENABLE_NOTIFICATIONS` - Activa/desactiva notificaciones (true/false)
+- `NOTIFICATION_CHAT_ID` - ID del chat donde enviar notificaciones
+- `SEGMENT_SIZE_MB` - Tamaño de segmentos para archivos grandes (por defecto: 20MB)
+- `CONCURRENT_SEGMENTS` - Número de segmentos concurrentes (por defecto: 3)
